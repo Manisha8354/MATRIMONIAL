@@ -1,6 +1,7 @@
 const express= require('express')
 const db= require('./dataBaseConfig.js')
 const cors=require('cors')
+const path=require('path')
 const dotenv= require('dotenv')
 dotenv.config()
 const contactRoute=require('./routes/contactRoute.js')
@@ -15,7 +16,7 @@ const statusRoute=require('./routes/statusRoute.js')
 let app = express()
 app.use(express.json())
 app.use(cors())
-app.use(express.static('uploads'))
+app.use('/bhagat_uploads',express.static(path.join(__dirname,'bhagat_uploads')))
 
 db.connect((err)=>{
 if(err) throw err
@@ -157,14 +158,14 @@ db.query(paymentTable, (err, result)=>{
 })
 
 
-app.use('/api',contactRoute)
-app.use('/api',enquiryRoute)
-app.use('/api',profileRoute)
-app.use('/api',signRoute)
-app.use('/api',adminRoute)
-app.use('/api',statusRoute)
-app.listen(process.env.PORT,()=>{
-    console.log(`server is running on ${process.env.PORT}`)
+app.use('/bhagat',contactRoute)
+app.use('/bhagat',enquiryRoute)
+app.use('/bhagat',profileRoute)
+app.use('/bhagat',signRoute)
+app.use('/bhagat',adminRoute)
+app.use('/bhagat',statusRoute)
+app.listen(5001,()=>{
+    console.log(`server is running on ${5001}`)
 })
 
 
